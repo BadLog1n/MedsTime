@@ -14,35 +14,19 @@
     android:paddingBottom="5dp">
 
     <TextView
-        android:id="@+id/record"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/authorIdChat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:visibility="gone" />
-
-    <TextView
         android:id="@+id/who_posted_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Степан Немченко"
         android:textColor="#52A2E1"
         android:textSize="16sp"
         android:textStyle="bold" />
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/markSign"
             android:layout_width="wrap_content"
