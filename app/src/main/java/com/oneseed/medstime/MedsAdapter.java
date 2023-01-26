@@ -35,14 +35,13 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull MedsAdapter.ViewHolder holder, int position) {
         Meds medicine = meds.get(position);
         holder.medsTextView.setText(medicine.getTextInside());
-        if (medicine.getTimesInside().equals(medicine.getCountInside())){
+        if (medicine.getTimesInside().equals(medicine.getCountInside())) {
             holder.timesCount.setVisibility(View.GONE);
             holder.markSign.setVisibility(View.INVISIBLE);
-        }
-        else {
+        } else {
             holder.timesCount.setVisibility(View.VISIBLE);
             holder.markSign.setVisibility(View.VISIBLE);
-            String timesCountText = "Осталось " + (medicine.getTimesInside()-medicine.getCountInside()) + " раз(а)";
+            String timesCountText = "Осталось " + (medicine.getTimesInside() - medicine.getCountInside()) + " раз(а)";
             holder.timesCount.setText(timesCountText);
         }
 
@@ -53,7 +52,7 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
         });
 
         holder.markSign.setOnClickListener(v -> {
-            medicine.setCountInside(medicine.getCountInside()+1);
+            medicine.setCountInside(medicine.getCountInside() + 1);
             notifyItemChanged(position);
         });
     }

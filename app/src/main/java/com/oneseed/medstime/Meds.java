@@ -6,11 +6,11 @@ public class Meds {
     private Integer timesInside;
     private Integer countInside;
 
-    public Meds(String text, Integer times, Integer count){
+    public Meds(String text, Integer times, Integer count) {
 
-        this.textInside=text;
-        this.timesInside=times;
-        this.countInside=count;
+        this.textInside = text;
+        this.timesInside = times;
+        this.countInside = count;
     }
 
     public String getTextInside() {

@@ -7,16 +7,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Meds> meds = new ArrayList<Meds>();
+    ArrayList<Meds> meds = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
         addNewMedButton.setOnClickListener(v -> {
             addMedsLayout.setVisibility(View.GONE);
             addMedsBtnLayout.setVisibility(View.VISIBLE);
-            meds.add(new Meds (newMessEdittext.getText().toString(), Integer.parseInt(editTextNumber.getText().toString()), 0));
+            meds.add(new Meds(newMessEdittext.getText().toString(), Integer.parseInt(editTextNumber.getText().toString()), 0));
         });
     }
 
-    private void setInitialData(){
-        meds.add(new Meds ("Нейромультивит\nПить три раза в день", 3, 1));
-        meds.add(new Meds ("Нейромультивит", 1, 0));
-        meds.add(new Meds ("Нейромультивит", 1, 1));
+    private void setInitialData() {
+        meds.add(new Meds("Нейромультивит\nПить три раза в день", 3, 1));
+        meds.add(new Meds("Нейромультивит", 1, 0));
+        meds.add(new Meds("Нейромультивит", 1, 1));
     }
 }
