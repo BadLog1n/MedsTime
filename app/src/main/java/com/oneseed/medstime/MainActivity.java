@@ -1,11 +1,13 @@
 package com.oneseed.medstime;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton openButton = findViewById(R.id.addMedsImgBtn);
         ImageButton closeButton = findViewById(R.id.closeImgBtn);
         Button addNewMedButton = findViewById(R.id.addNewMedButton);
-        TextView newMedicineText = findViewById(R.id.newMessEdittext);
-        TextView editTextNumber = findViewById(R.id.editTextNumber);
+        EditText editTextNumber = findViewById(R.id.editTextNumber);
+        EditText newMedicineText = findViewById(R.id.newMedicineEditText);
         LinearLayout addMedsLayout = findViewById(R.id.addMedsLayout);
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
 
@@ -63,11 +65,15 @@ public class MainActivity extends AppCompatActivity {
             newMedicineText.setText("");
             editTextNumber.setText("");
         });
+
     }
 
     private void setInitialData() {
-        meds.add(new Meds("Нейромультивит\nПить три раза в день", 3, 1));
-        meds.add(new Meds("Нейромультивит", 1, 0));
-        meds.add(new Meds("Нейромультивит", 1, 1));
+        SharedPreferences settings = this.getSharedPreferences(getString(R.string.medsShared), Context.MODE_PRIVATE);
+        String[] medsOne = settings.getString("meds", "").split(" ");
+        if (medsOne.length > 1){
+            meds.add(new Meds(medsOne[0], Integer.parseInt(medsOne[1]), Integer.parseInt(medsOne[2])));
+
+        }
     }
 }

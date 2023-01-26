@@ -1,12 +1,12 @@
 package com.oneseed.medstime;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,10 +17,14 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
 
     private final LayoutInflater inflater;
     private final List<Meds> meds;
+    private final SharedPreferences settings;
 
     MedsAdapter(Context context, List<Meds> meds) {
         this.meds = meds;
         this.inflater = LayoutInflater.from(context);
+        settings = context.getSharedPreferences(context.getString(R.string.medsShared), Context.MODE_PRIVATE);
+
+
     }
 
     @NonNull
@@ -33,6 +37,7 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MedsAdapter.ViewHolder holder, int position) {
+        SharedPreferences.Editor editor = settings.edit();
         Meds medicine = meds.get(position);
         holder.medsTextView.setText(medicine.getTextInside());
         if (medicine.getTimesInside().equals(medicine.getCountInside())) {
@@ -55,6 +60,10 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             medicine.setCountInside(medicine.getCountInside() + 1);
             notifyItemChanged(position);
         });
+
+        editor.putString( "meds", medicine.getTextInside() + " " + medicine.getTimesInside() + " " + medicine.getCountInside());
+        editor.apply();
+
     }
 
     @Override
