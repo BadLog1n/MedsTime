@@ -50,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
         addNewMedButton.setOnClickListener(v -> {
             addMedsLayout.setVisibility(View.GONE);
             addMedsBtnLayout.setVisibility(View.VISIBLE);
-            meds.add(new Meds (newMessEdittext.getText().toString(), Integer.parseInt(editTextNumber.getText().toString()), 0, 1));
+            meds.add(new Meds (newMessEdittext.getText().toString(), Integer.parseInt(editTextNumber.getText().toString()), 0));
         });
     }
 
     private void setInitialData(){
-        meds.add(new Meds ("Нейромультивит\nПить три раза в день", 3, 1, 1));
-        meds.add(new Meds ("Нейромультивит", 1, 0, 1));
-        meds.add(new Meds ("Нейромультивит", 1, 1, 1));
+        meds.add(new Meds ("Нейромультивит\nПить три раза в день", 3, 1));
+        meds.add(new Meds ("Нейромультивит", 1, 0));
+        meds.add(new Meds ("Нейромультивит", 1, 1));
     }
 }

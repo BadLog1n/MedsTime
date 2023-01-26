@@ -5,14 +5,12 @@ public class Meds {
     private String textInside;
     private Integer timesInside;
     private Integer countInside;
-    private Integer idInside;
 
-    public Meds(String text, Integer times, Integer count, Integer id){
+    public Meds(String text, Integer times, Integer count){
 
         this.textInside=text;
         this.timesInside=times;
         this.countInside=count;
-        this.idInside=id;
     }
 
     public String getTextInside() {
@@ -37,14 +35,6 @@ public class Meds {
 
     public void setCountInside(Integer count) {
         this.countInside = count;
-    }
-
-    public Integer getIdInside() {
-        return this.idInside;
-    }
-
-    public void setIdInside(Integer id) {
-        this.idInside = id;
     }
 
 
