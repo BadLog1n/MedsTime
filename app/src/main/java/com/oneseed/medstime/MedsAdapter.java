@@ -45,6 +45,18 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             String timesCountText = "Осталось " + (medicine.getTimesInside()-medicine.getCountInside()) + " раз(а)";
             holder.timesCount.setText(timesCountText);
         }
+
+        holder.deleteSign.setOnClickListener(v -> {
+            meds.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, meds.size());
+        });
+
+        holder.markSign.setOnClickListener(v -> {
+            medicine.setCountInside(medicine.getCountInside()+1);
+            notifyItemChanged(position);
+        });
+        
 /*        holder.nameView.setText(meds.getName());
         holder.capitalView.setText(meds.getCapital());*/
     }
@@ -58,6 +70,7 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
         final TextView medsTextView;
         final TextView timesCount;
         final ImageButton markSign;
+        final ImageButton deleteSign;
 /*        final ImageView flagView;
         final TextView nameView, capitalView;*/
 
@@ -66,6 +79,7 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             medsTextView = view.findViewById(R.id.medsText);
             timesCount = view.findViewById(R.id.timesCount);
             markSign = view.findViewById(R.id.markSign);
+            deleteSign = view.findViewById(R.id.deleteSign);
 /*            flagView = view.findViewById(R.id.flag);
             nameView = view.findViewById(R.id.name);
             capitalView = view.findViewById(R.id.capital);*/
