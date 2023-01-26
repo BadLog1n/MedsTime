@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
+    ArrayList<Meds> meds = new ArrayList<Meds>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,28 +27,28 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout addMedsLayout = findViewById(R.id.addMedsLayout);
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
 
-        RecyclerView medsRecyclerView;
+        setInitialData();
+        RecyclerView medsRecyclerView = findViewById(R.id.medsRc);
+        MedsAdapter adapter = new MedsAdapter(this, meds);
+        adapter.notifyDataSetChanged();
 
-
-        medsRecyclerView = findViewById(R.id.medsRc);
-        medsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        MedsAdapter medsAdapter = new MedsAdapter();
-        medsRecyclerView.setAdapter(medsAdapter);
-
+        medsRecyclerView.setAdapter(adapter);
 
 
         openButton.setOnClickListener(v -> {
-            medsAdapter.MedsAdapterData(("test").split(""));
-            medsAdapter.notifyDataSetChanged();
             addMedsLayout.setVisibility(View.VISIBLE);
             addMedsBtnLayout.setVisibility(View.GONE);
         });
         closeButton.setOnClickListener(v -> {
-            medsAdapter.MedsAdapterData(("t1s3").split(""));
-            medsAdapter.notifyDataSetChanged();
             addMedsLayout.setVisibility(View.GONE);
             addMedsBtnLayout.setVisibility(View.VISIBLE);
         });
 
+    }
+
+    private void setInitialData(){
+        meds.add(new Meds ("Нейромультивит", 1, 0, 1));
+        meds.add(new Meds ("Нейромультивит", 1, 0, 1));
+        meds.add(new Meds ("Нейромультивит", 1, 1, 1));
     }
 }

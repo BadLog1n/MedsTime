@@ -1,72 +1,74 @@
 package com.oneseed.medstime;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 
 public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
 
-    private String[] localDataSet;
+    private final LayoutInflater inflater;
+    private final List<Meds> meds;
 
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder)
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
-
-        public ViewHolder(View view) {
-            super(view);
-            // Define click listener for the ViewHolder's View
-
-            textView = view.findViewById(R.id.medsText);
-        }
-
-        public TextView getTextView() {
-            return textView;
-        }
+    MedsAdapter(Context context, List<Meds> meds) {
+        this.meds = meds;
+        this.inflater = LayoutInflater.from(context);
     }
 
-    /**
-     * Initialize the dataset of the Adapter
-     *
-     * @param dataSet String[] containing the data to populate views to be used
-     *                by RecyclerView
-     */
-    public void MedsAdapterData(String[] dataSet) {
-        localDataSet = dataSet;
-    }
-
-
-    // Create new views (invoked by the layout manager)
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.meds_item, viewGroup, false);
+    public MedsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        View view = inflater.inflate(R.layout.meds_item, parent, false);
         return new ViewHolder(view);
     }
 
-
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        viewHolder.getTextView().setText(localDataSet[position]);
+    public void onBindViewHolder(@NonNull MedsAdapter.ViewHolder holder, int position) {
+        Meds medicine = meds.get(position);
+        holder.medsTextView.setText(medicine.getTextInside());
+        if (medicine.getTimesInside().equals(medicine.getCountInside())){
+            holder.timesCount.setVisibility(View.GONE);
+            holder.markSign.setVisibility(View.INVISIBLE);
+        }
+        else {
+            holder.timesCount.setVisibility(View.VISIBLE);
+            holder.markSign.setVisibility(View.VISIBLE);
+            String timesCountText = "Осталось " + (medicine.getTimesInside()-medicine.getCountInside()) + " раз(а)";
+            holder.timesCount.setText(timesCountText);
+        }
+/*        holder.nameView.setText(meds.getName());
+        holder.capitalView.setText(meds.getCapital());*/
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        if (localDataSet == null) {
-            return 0;
+        return meds.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        final TextView medsTextView;
+        final TextView timesCount;
+        final ImageButton markSign;
+/*        final ImageView flagView;
+        final TextView nameView, capitalView;*/
+
+        ViewHolder(View view) {
+            super(view);
+            medsTextView = view.findViewById(R.id.medsText);
+            timesCount = view.findViewById(R.id.timesCount);
+            markSign = view.findViewById(R.id.markSign);
+/*            flagView = view.findViewById(R.id.flag);
+            nameView = view.findViewById(R.id.name);
+            capitalView = view.findViewById(R.id.capital);*/
         }
-        return localDataSet.length;
     }
 }

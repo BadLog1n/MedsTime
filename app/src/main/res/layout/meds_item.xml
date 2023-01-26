@@ -51,4 +51,13 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/timesCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#52A2E1"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
 </LinearLayout>
