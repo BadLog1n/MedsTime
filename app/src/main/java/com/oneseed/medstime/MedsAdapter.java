@@ -56,9 +56,6 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             medicine.setCountInside(medicine.getCountInside()+1);
             notifyItemChanged(position);
         });
-        
-/*        holder.nameView.setText(meds.getName());
-        holder.capitalView.setText(meds.getCapital());*/
     }
 
     @Override
@@ -71,8 +68,6 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
         final TextView timesCount;
         final ImageButton markSign;
         final ImageButton deleteSign;
-/*        final ImageView flagView;
-        final TextView nameView, capitalView;*/
 
         ViewHolder(View view) {
             super(view);
@@ -80,9 +75,6 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             timesCount = view.findViewById(R.id.timesCount);
             markSign = view.findViewById(R.id.markSign);
             deleteSign = view.findViewById(R.id.deleteSign);
-/*            flagView = view.findViewById(R.id.flag);
-            nameView = view.findViewById(R.id.name);
-            capitalView = view.findViewById(R.id.capital);*/
         }
     }
 }
