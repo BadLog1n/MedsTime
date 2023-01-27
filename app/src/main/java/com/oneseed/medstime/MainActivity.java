@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.SECOND, 0);
 
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
             String time = hour + ":" + minute;
             Toast.makeText(this, "Уведомление установлено на " + time, Toast.LENGTH_SHORT).show();
