@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             Intent intent = new Intent(MainActivity.this, MyBroadcastReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
             int hour = timePicker.getHour();
