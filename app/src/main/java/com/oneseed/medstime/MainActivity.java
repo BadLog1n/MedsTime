@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton openButton = findViewById(R.id.addMedsImgBtn);
         ImageButton closeButton = findViewById(R.id.closeImgBtn);
         Button addNewMedButton = findViewById(R.id.addNewMedButton);
-        EditText editTextNumber = findViewById(R.id.editTextNumber);
+        Spinner countSpinner = findViewById(R.id.countSpinner);
         EditText newMedicineText = findViewById(R.id.newMedicineEditText);
         LinearLayout addMedsLayout = findViewById(R.id.addMedsLayout);
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         addNewMedButton.setOnClickListener(v -> {
             String newMedicineTextString = newMedicineText.getText().toString();
-            String editTextNumberString = editTextNumber.getText().toString();
+            String editTextNumberString = countSpinner.getSelectedItem().toString();
             if (newMedicineTextString.equals("")) {
                 Toast.makeText(this, "Пожалуйста, введите название или информацию", Toast.LENGTH_SHORT).show();
                 return;
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             addMedsBtnLayout.setVisibility(View.VISIBLE);
             meds.add(new Meds(newMedicineTextString, times, 0));
             newMedicineText.setText("");
-            editTextNumber.setText("");
+            countSpinner.setSelection(0);
         });
 
     }
@@ -99,4 +100,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
+    
 }

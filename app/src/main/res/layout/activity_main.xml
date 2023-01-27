@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.4"
                     android:background="@color/grey_mes_edittext"
                     android:ems="10"
                     android:gravity="start|top"
@@ -109,16 +109,15 @@
                     android:paddingEnd="10dp"
                     android:paddingBottom="10dp" />
 
-                <EditText
-                    android:id="@+id/editTextNumber"
+                <Spinner
+                    android:id="@+id/countSpinner"
+                    android:gravity="end"
+                    android:textAlignment="textEnd"
+                    android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="Количество"
-                    android:inputType="number" />
+                    android:entries="@array/spinnerItems"
+                    android:layout_weight="1" />
             </LinearLayout>
 
             <Button
