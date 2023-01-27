@@ -3,7 +3,6 @@ package com.oneseed.medstime;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -25,7 +24,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
@@ -100,8 +98,11 @@ public class MainActivity extends AppCompatActivity {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             //устанавливает уведомление на текущий день
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-            String time = hour + ":" + minute;
+            String minuteStr = String.valueOf(minute);
+            if (minuteStr.length() < 10) {
+                minuteStr = "0" + minute;
+            }
+            String time = hour + ":" + minuteStr;
             Toast.makeText(this, "Уведомление установлено на " + time, Toast.LENGTH_SHORT).show();
             timePicker.setVisibility(View.GONE);
             addTimerBtn.setText("Добавить уведомление");
