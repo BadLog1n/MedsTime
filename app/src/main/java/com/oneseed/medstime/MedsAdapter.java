@@ -55,7 +55,6 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             holder.timesCount.setText(timesCountText);
         }
 
-        editor.putInt("length", position);
         editor.putString( String.valueOf(position), medicine.getTextInside() + " " + medicine.getTimesInside() + " " + medicine.getCountInside());
 
         holder.deleteSign.setOnClickListener(v -> {
@@ -80,6 +79,9 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("length", meds.size() - 1);
+        editor.apply();
         return meds.size();
     }
 
