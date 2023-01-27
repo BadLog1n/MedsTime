@@ -76,22 +76,24 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i <= length; i++) {
             String[] medsOne = settings.getString(String.valueOf(i), "").split(" ");
             if (!medsOne[2].equals("deleted")) {
+                if (isTodayDate) {
+                    medsOne[2] = "0";
+                }
                 meds.add(new Meds(medsOne[0], Integer.parseInt(medsOne[1]), Integer.parseInt(medsOne[2])));
             }
         }
     }
 
-    private Boolean dates(){
+    private Boolean dates() {
         SharedPreferences settings = this.getSharedPreferences(getString(R.string.medsShared), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", Locale.ROOT);
         String str = formatter.format(date);
         editor.putString("date", str);
-        if (settings.getString("lastDate", "").equals(str)){
+        if (settings.getString("lastDate", "").equals(str)) {
             return false;
-        }
-        else {
+        } else {
             editor.putString("lastDate", str);
             editor.apply();
             return true;
