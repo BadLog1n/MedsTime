@@ -13,8 +13,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,5 +79,15 @@ public class MainActivity extends AppCompatActivity {
                 meds.add(new Meds(medsOne[0], Integer.parseInt(medsOne[1]), Integer.parseInt(medsOne[2])));
             }
         }
+    }
+
+    private void getDate(){
+        SharedPreferences settings = this.getSharedPreferences(getString(R.string.medsShared), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", Locale.ROOT);
+        String str = formatter.format(date);
+        editor.putString("date", str);
+        editor.apply();
     }
 }
