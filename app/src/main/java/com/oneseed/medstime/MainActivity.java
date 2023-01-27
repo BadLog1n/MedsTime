@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,12 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ImageButton openButton = findViewById(R.id.addMedsImgBtn);
-        ImageButton closeButton = findViewById(R.id.closeImgBtn);
         Button addNewMedButton = findViewById(R.id.addNewMedButton);
         Spinner countSpinner = findViewById(R.id.countSpinner);
         EditText newMedicineText = findViewById(R.id.newMedicineEditText);
         LinearLayout addMedsLayout = findViewById(R.id.addMedsLayout);
+        LinearLayout addMedsLayoutHeader = findViewById(R.id.addMedsLayoutHeader);
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
 
         setInitialData(dates());
@@ -44,15 +42,13 @@ public class MainActivity extends AppCompatActivity {
         MedsAdapter adapter = new MedsAdapter(this, meds);
         medsRecyclerView.setAdapter(adapter);
 
-        openButton.setOnClickListener(v -> {
+        addMedsBtnLayout.setOnClickListener(v -> {
             addMedsLayout.setVisibility(View.VISIBLE);
             addMedsBtnLayout.setVisibility(View.GONE);
         });
-        closeButton.setOnClickListener(v -> {
+        addMedsLayoutHeader.setOnClickListener(v -> {
             addMedsLayout.setVisibility(View.GONE);
             addMedsBtnLayout.setVisibility(View.VISIBLE);
-            hideKeyboard();
-
         });
 
         addNewMedButton.setOnClickListener(v -> {
