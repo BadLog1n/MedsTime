@@ -18,6 +18,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // create the notification here
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyMeds")
+                .setSmallIcon(R.drawable.main_icon)
                 .setContentTitle("MedsTime")
                 .setContentText("Напоминание о приеме лекарств!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);

@@ -55,15 +55,6 @@ public class MainActivity extends AppCompatActivity {
         TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
         createNotificationChannel();
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "channel_id")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Notification Title")
-                .setContentText("Notification Text")
-                .setAutoCancel(true);
-        NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(100, builder.build());
-
         setInitialData(dates());
         RecyclerView medsRecyclerView = findViewById(R.id.medsRc);
         MedsAdapter adapter = new MedsAdapter(this, meds);
@@ -169,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            String channelId = "channel_id";
+            String channelId = "notifyMeds";
             String channelName = "channel_name";
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
