@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout addMedsLayout = findViewById(R.id.addMedsLayout);
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
 
-        setInitialData();
+        setInitialData(dates());
         RecyclerView medsRecyclerView = findViewById(R.id.medsRc);
         MedsAdapter adapter = new MedsAdapter(this, meds);
         medsRecyclerView.setAdapter(adapter);
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setInitialData() {
+    private void setInitialData(boolean isTodayDate) {
         SharedPreferences settings = this.getSharedPreferences(getString(R.string.medsShared), Context.MODE_PRIVATE);
-        int length = settings.getInt("length", 0);
+        int length = settings.getInt("length", -1);
         for (int i = 0; i <= length; i++) {
             String[] medsOne = settings.getString(String.valueOf(i), "").split(" ");
             if (!medsOne[2].equals("deleted")) {
@@ -81,13 +81,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getDate(){
+    private Boolean dates(){
         SharedPreferences settings = this.getSharedPreferences(getString(R.string.medsShared), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy", Locale.ROOT);
         String str = formatter.format(date);
         editor.putString("date", str);
-        editor.apply();
+        if (settings.getString("lastDate", "").equals(str)){
+            return false;
+        }
+        else {
+            editor.putString("lastDate", str);
+            editor.apply();
+            return true;
+        }
     }
 }
