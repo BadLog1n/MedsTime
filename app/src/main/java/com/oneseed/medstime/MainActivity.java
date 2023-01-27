@@ -105,7 +105,9 @@ public class MainActivity extends AppCompatActivity {
             calendar.set(Calendar.MINUTE, minute);
             calendar.set(Calendar.SECOND, 0);
 
+            //устанавливает уведомление на каждый день
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            //устанавливает уведомление на текущий день
             alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
             String time = hour + ":" + minute;
