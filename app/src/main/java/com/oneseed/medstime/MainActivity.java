@@ -1,9 +1,11 @@
 package com.oneseed.medstime;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -49,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
         closeButton.setOnClickListener(v -> {
             addMedsLayout.setVisibility(View.GONE);
             addMedsBtnLayout.setVisibility(View.VISIBLE);
+            hideKeyboard();
+
         });
 
         addNewMedButton.setOnClickListener(v -> {
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
             meds.add(new Meds(newMedicineTextString, times, 0));
             newMedicineText.setText("");
             countSpinner.setSelection(0);
+            hideKeyboard();
         });
 
     }
@@ -100,5 +105,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     }
-    
+
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+    }
+
 }
