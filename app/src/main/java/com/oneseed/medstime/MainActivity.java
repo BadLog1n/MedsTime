@@ -1,8 +1,17 @@
 package com.oneseed.medstime;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -14,10 +23,13 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -41,25 +53,58 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
         TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
-
+        createNotificationChannel();
         setInitialData(dates());
         RecyclerView medsRecyclerView = findViewById(R.id.medsRc);
         MedsAdapter adapter = new MedsAdapter(this, meds);
         medsRecyclerView.setAdapter(adapter);
 
         addTimerBtn.setOnClickListener(v -> {
-            if (addTimerBtn.getText().equals("Отмена")){
+            if (addTimerBtn.getText().equals("Отмена")) {
                 timePicker.setVisibility(View.GONE);
                 addTimerBtn.setText("Добавить уведомление");
                 medsRecyclerView.setVisibility(View.VISIBLE);
                 setTimerBtn.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 timePicker.setVisibility(View.VISIBLE);
                 addTimerBtn.setText("Отмена");
                 medsRecyclerView.setVisibility(View.GONE);
                 setTimerBtn.setVisibility(View.VISIBLE);
             }
+        });
+
+        setTimerBtn.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    //request permission
+                    Toast.makeText(this, "Для получения уведомлений необходимо разрешение", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            Intent intent = new Intent(MainActivity.this, MyBroadcastReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+            int hour = timePicker.getHour();
+            int minute = timePicker.getMinute();
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            calendar.set(Calendar.HOUR_OF_DAY, hour);
+            calendar.set(Calendar.MINUTE, minute);
+            calendar.set(Calendar.SECOND, 0);
+
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+            String time = hour + ":" + minute;
+            Toast.makeText(this, "Уведомление установлено на " + time, Toast.LENGTH_SHORT).show();
+            timePicker.setVisibility(View.GONE);
+            addTimerBtn.setText("Добавить уведомление");
+            medsRecyclerView.setVisibility(View.VISIBLE);
+            setTimerBtn.setVisibility(View.GONE);
+
+
         });
 
 
@@ -104,6 +149,19 @@ public class MainActivity extends AppCompatActivity {
                 }
                 meds.add(new Meds(medsOne[0], Integer.parseInt(medsOne[1]), Integer.parseInt(medsOne[2])));
             }
+        }
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "MedicineChannel";
+            String description = "Channel for medicine";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyMed", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 
