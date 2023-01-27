@@ -34,8 +34,8 @@
             android:id="@+id/addMedsImgBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_add_24"
             android:backgroundTint="@color/white"
+            android:src="@drawable/ic_baseline_add_24"
             app:tint="@color/blue" />
     </LinearLayout>
 
@@ -95,12 +95,12 @@
                     android:id="@+id/newMedicineEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="0.5"
                     android:background="@color/grey_mes_edittext"
                     android:ems="10"
-                    android:layout_weight="0.5"
-                    android:layout_gravity="start"
-                    android:hint="Информация"
                     android:gravity="start|top"
+                    android:hint="Информация"
                     android:inputType="textMultiLine"
                     android:maxLength="600"
                     android:minHeight="40dp"
@@ -111,13 +111,13 @@
 
                 <EditText
                     android:id="@+id/editTextNumber"
-                    android:layout_weight="1"
-                    android:layout_gravity="end"
-                    android:hint="Количество"
-                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
                     android:ems="10"
+                    android:gravity="center"
+                    android:hint="Количество"
                     android:inputType="number" />
             </LinearLayout>
 
@@ -138,9 +138,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/medsRc"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/meds_item" />
 
 </LinearLayout>
