@@ -55,10 +55,16 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             holder.timesCount.setText(timesCountText);
         }
 
+        editor.putInt("length", position);
+        editor.putString( String.valueOf(position), medicine.getTextInside() + " " + medicine.getTimesInside() + " " + medicine.getCountInside());
+
         holder.deleteSign.setOnClickListener(v -> {
             meds.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, meds.size());
+            editor.putString( String.valueOf(position), medicine.getTextInside() + " " + medicine.getTimesInside() + " " + "deleted");
+            editor.apply();
+
         });
 
         holder.markSign.setOnClickListener(v -> {
@@ -67,8 +73,7 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
         });
 
         //get timestamp
-        editor.putInt("length", position);
-        editor.putString( String.valueOf(position), medicine.getTextInside() + " " + medicine.getTimesInside() + " " + medicine.getCountInside());
+
         editor.apply();
 
     }

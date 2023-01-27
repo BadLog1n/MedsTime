@@ -73,7 +73,9 @@ public class MainActivity extends AppCompatActivity {
         int length = settings.getInt("length", 0);
         for (int i = 0; i <= length; i++) {
             String[] medsOne = settings.getString(String.valueOf(i), "").split(" ");
-            meds.add(new Meds(medsOne[0], Integer.parseInt(medsOne[1]), Integer.parseInt(medsOne[2])));
+            if (!medsOne[2].equals("deleted")) {
+                meds.add(new Meds(medsOne[0], Integer.parseInt(medsOne[1]), Integer.parseInt(medsOne[2])));
+            }
         }
     }
 }
