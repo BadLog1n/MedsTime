@@ -3,4 +3,5 @@
     <string name="newMedString">Новое лекарство</string>
     <string name="completeText">Подтвердить</string>
     <string name="medsShared">Meds</string>
+    <string name="splitArrayString">;;</string>
 </resources>

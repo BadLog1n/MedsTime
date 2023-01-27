@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences settings = this.getSharedPreferences(getString(R.string.medsShared), Context.MODE_PRIVATE);
         int length = settings.getInt("length", -1);
         for (int i = 0; i <= length; i++) {
-            String[] medsOne = settings.getString(String.valueOf(i), "").split(" ");
+            String[] medsOne = settings.getString(String.valueOf(i), "").split(getString(R.string.splitArrayString));
             if (!medsOne[2].equals("deleted")) {
                 if (isTodayDate) {
                     medsOne[2] = "0";

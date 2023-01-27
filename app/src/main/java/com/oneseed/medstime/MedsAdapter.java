@@ -1,6 +1,5 @@
 package com.oneseed.medstime;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -8,13 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.security.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 
@@ -55,13 +51,13 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             holder.timesCount.setText(timesCountText);
         }
 
-        editor.putString( String.valueOf(position), medicine.getTextInside() + " " + medicine.getTimesInside() + " " + medicine.getCountInside());
+        editor.putString(String.valueOf(position), medicine.getTextInside() + inflater.getContext().getString(R.string.splitArrayString) + medicine.getTimesInside() + inflater.getContext().getString(R.string.splitArrayString) + medicine.getCountInside());
 
         holder.deleteSign.setOnClickListener(v -> {
             meds.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, meds.size());
-            editor.putString( String.valueOf(position), medicine.getTextInside() + " " + medicine.getTimesInside() + " " + "deleted");
+            editor.putString(String.valueOf(position), medicine.getTextInside() + inflater.getContext().getString(R.string.splitArrayString) + medicine.getTimesInside() + inflater.getContext().getString(R.string.splitArrayString) + "deleted");
             editor.apply();
 
         });
