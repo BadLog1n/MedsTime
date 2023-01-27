@@ -136,11 +136,40 @@
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/addTimerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить уведомление"
+        android:textAllCaps="false"
+        android:fontFamily="@font/inter"
+        android:textSize="16sp"
+        app:cornerRadius="100dp" />
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/setTimerBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Установить уведомление"
+        android:textAllCaps="false"
+        android:visibility="gone"
+        android:fontFamily="@font/inter"
+        android:textSize="16sp"
+        app:cornerRadius="100dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/medsRc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/meds_item" />
+
+
 
 </LinearLayout>

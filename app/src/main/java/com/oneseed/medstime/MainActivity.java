@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,16 +32,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button addNewMedButton = findViewById(R.id.addNewMedButton);
+        Button addTimerBtn = findViewById(R.id.addTimerBtn);
+        Button setTimerBtn = findViewById(R.id.setTimerBtn);
         Spinner countSpinner = findViewById(R.id.countSpinner);
         EditText newMedicineText = findViewById(R.id.newMedicineEditText);
         LinearLayout addMedsLayout = findViewById(R.id.addMedsLayout);
         LinearLayout addMedsLayoutHeader = findViewById(R.id.addMedsLayoutHeader);
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
+        TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
 
         setInitialData(dates());
         RecyclerView medsRecyclerView = findViewById(R.id.medsRc);
         MedsAdapter adapter = new MedsAdapter(this, meds);
         medsRecyclerView.setAdapter(adapter);
+
+        addTimerBtn.setOnClickListener(v -> {
+            if (addTimerBtn.getText().equals("Отмена")){
+                timePicker.setVisibility(View.GONE);
+                addTimerBtn.setText("Добавить уведомление");
+                medsRecyclerView.setVisibility(View.VISIBLE);
+                setTimerBtn.setVisibility(View.GONE);
+            }
+            else {
+                timePicker.setVisibility(View.VISIBLE);
+                addTimerBtn.setText("Отмена");
+                medsRecyclerView.setVisibility(View.GONE);
+                setTimerBtn.setVisibility(View.VISIBLE);
+            }
+        });
+
 
         addMedsBtnLayout.setOnClickListener(v -> {
             addMedsLayout.setVisibility(View.VISIBLE);
