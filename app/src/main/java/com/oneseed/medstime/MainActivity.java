@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView medsRecyclerView = findViewById(R.id.medsRc);
         MedsAdapter adapter = new MedsAdapter(this, meds);
         medsRecyclerView.setAdapter(adapter);
-
 
         openButton.setOnClickListener(v -> {
             addMedsLayout.setVisibility(View.VISIBLE);
@@ -70,10 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void setInitialData() {
         SharedPreferences settings = this.getSharedPreferences(getString(R.string.medsShared), Context.MODE_PRIVATE);
-        String[] medsOne = settings.getString("meds", "").split(" ");
-        if (medsOne.length > 1){
+        int length = settings.getInt("length", 0);
+        for (int i = 0; i <= length; i++) {
+            String[] medsOne = settings.getString(String.valueOf(i), "").split(" ");
             meds.add(new Meds(medsOne[0], Integer.parseInt(medsOne[1]), Integer.parseInt(medsOne[2])));
-
         }
     }
 }

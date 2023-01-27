@@ -1,5 +1,6 @@
 package com.oneseed.medstime;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
@@ -7,9 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.security.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -61,7 +66,9 @@ public class MedsAdapter extends RecyclerView.Adapter<MedsAdapter.ViewHolder> {
             notifyItemChanged(position);
         });
 
-        editor.putString( "meds", medicine.getTextInside() + " " + medicine.getTimesInside() + " " + medicine.getCountInside());
+        //get timestamp
+        editor.putInt("length", position);
+        editor.putString( String.valueOf(position), medicine.getTextInside() + " " + medicine.getTimesInside() + " " + medicine.getCountInside());
         editor.apply();
 
     }
