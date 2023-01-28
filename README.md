@@ -11,3 +11,6 @@
   <img src="https://user-images.githubusercontent.com/54963637/215250382-fd8c40dd-a04c-42d8-83db-b3152558288a.jpg" style="flex: 1;" width="350"  >
   <img src="https://user-images.githubusercontent.com/54963637/215250378-a09fe333-23a7-4bd3-b9a2-901a20ca5157.jpg" style="flex: 1;" width="350"  >
 </div>
+
+
+(Проект для личного знакомства с разработкой на Java)
