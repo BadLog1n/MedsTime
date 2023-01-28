@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -47,10 +49,11 @@ public class MainActivity extends AppCompatActivity {
         Button setTimerBtn = findViewById(R.id.setTimerBtn);
         Spinner countSpinner = findViewById(R.id.countSpinner);
         EditText newMedicineText = findViewById(R.id.newMedicineEditText);
+        TextView madeByText = findViewById(R.id.madeByText);
         LinearLayout addMedsLayout = findViewById(R.id.addMedsLayout);
         LinearLayout addMedsLayoutHeader = findViewById(R.id.addMedsLayoutHeader);
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
-        TimePicker timePicker = (TimePicker) findViewById(R.id.timePicker);
+        TimePicker timePicker = findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
         createNotificationChannel();
         setInitialData(dates());
@@ -139,6 +142,13 @@ public class MainActivity extends AppCompatActivity {
             newMedicineText.setText("");
             countSpinner.setSelection(0);
             hideKeyboard();
+        });
+
+
+        madeByText.setOnClickListener(v -> {
+            Intent browserIntent = new
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/badlog1n"));
+            startActivity(browserIntent);
         });
 
     }
