@@ -157,24 +157,38 @@
         android:textSize="16sp"
         app:cornerRadius="100dp" />
 
-
-
-    <TimePicker
-        android:id="@+id/timePicker"
+    <LinearLayout
+        android:id="@+id/layoutTimer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
-
-    <Button
-        android:id="@+id/setTimerBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Установить уведомление"
-        android:textAllCaps="false"
         android:visibility="gone"
-        android:fontFamily="@font/inter"
-        android:textSize="16sp"
-        app:cornerRadius="100dp" />
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/removeTimerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="Убрать уведомление"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="100dp" />
+
+        <TimePicker
+            android:id="@+id/timePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/setTimerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="Установить уведомление"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:cornerRadius="100dp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/medsRc"

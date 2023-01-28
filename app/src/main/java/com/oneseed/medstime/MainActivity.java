@@ -47,12 +47,14 @@ public class MainActivity extends AppCompatActivity {
         Button addNewMedButton = findViewById(R.id.addNewMedButton);
         Button addTimerBtn = findViewById(R.id.addTimerBtn);
         Button setTimerBtn = findViewById(R.id.setTimerBtn);
+        Button removeTimerBtn = findViewById(R.id.removeTimerBtn);
         Spinner countSpinner = findViewById(R.id.countSpinner);
         EditText newMedicineText = findViewById(R.id.newMedicineEditText);
         TextView madeByText = findViewById(R.id.madeByText);
         LinearLayout addMedsLayout = findViewById(R.id.addMedsLayout);
         LinearLayout addMedsLayoutHeader = findViewById(R.id.addMedsLayoutHeader);
         LinearLayout addMedsBtnLayout = findViewById(R.id.addMedsBtnLayout);
+        LinearLayout layoutTimer = findViewById(R.id.layoutTimer);
         TimePicker timePicker = findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
         createNotificationChannel();
@@ -63,21 +65,20 @@ public class MainActivity extends AppCompatActivity {
 
         addTimerBtn.setOnClickListener(v -> {
             if (addTimerBtn.getText().equals("Отмена")) {
-                timePicker.setVisibility(View.GONE);
                 addTimerBtn.setText("Добавить уведомление");
                 medsRecyclerView.setVisibility(View.VISIBLE);
-                setTimerBtn.setVisibility(View.GONE);
+                layoutTimer.setVisibility(View.GONE);
+
             } else {
-                timePicker.setVisibility(View.VISIBLE);
                 addTimerBtn.setText("Отмена");
                 medsRecyclerView.setVisibility(View.GONE);
-                setTimerBtn.setVisibility(View.VISIBLE);
+                layoutTimer.setVisibility(View.VISIBLE);
             }
         });
 
         setTimerBtn.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                ActivityCompat.requestPermissions((Activity) this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 1);
                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                     //request permission
                     Toast.makeText(this, "Для получения уведомлений необходимо разрешение", Toast.LENGTH_SHORT).show();
@@ -107,14 +108,19 @@ public class MainActivity extends AppCompatActivity {
             }
             String time = hour + ":" + minuteStr;
             Toast.makeText(this, "Уведомление установлено на " + time, Toast.LENGTH_SHORT).show();
-            timePicker.setVisibility(View.GONE);
             addTimerBtn.setText("Добавить уведомление");
+            layoutTimer.setVisibility(View.GONE);
             medsRecyclerView.setVisibility(View.VISIBLE);
-            setTimerBtn.setVisibility(View.GONE);
-
 
         });
 
+        removeTimerBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MyBroadcastReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.cancel(pendingIntent);
+            Toast.makeText(this, "Уведомления отключены", Toast.LENGTH_SHORT).show();
+        });
 
         addMedsBtnLayout.setOnClickListener(v -> {
             addMedsLayout.setVisibility(View.VISIBLE);
